@@ -1,6 +1,7 @@
 html,
 body {
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -17,4 +18,16 @@ body {
 
 #app {
   overflow-x: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 1180px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 700;
 }

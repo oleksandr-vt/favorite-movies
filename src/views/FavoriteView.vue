@@ -1,7 +1,9 @@
 <script setup>
-import AppHeader from '../components/AppHeader.vue'
+import Favorite from '../components/Favorite.vue'
 </script>
 
 <template>
-  <AppHeader />
+  <main>
+    <Favorite />
+  </main>
 </template>
