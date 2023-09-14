@@ -42,5 +42,22 @@ const props = defineProps({
     color: $colorBlack;
     border-color: $colorGold;
   }
+
+  &.gilded {
+    border-color: $colorGold;
+
+    &:hover {
+      background-color: $colorGold;
+    }
+  }
+
+  &.danger {
+    border-color: $colorRed;
+
+    &:hover {
+      background-color: $colorRed;
+      color: $colorWhite;
+    }
+  }
 }
 </style>

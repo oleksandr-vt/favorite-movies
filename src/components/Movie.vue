@@ -41,13 +41,13 @@ const isMovieFavorite = (id) => {
     </div>
 
     <div class="movie__buttons" v-if="props.storeName === 'movieStore'">
-      <AppButton :text="!props.movie.isWatched ? 'Watched' : 'Unwatched'"
+      <AppButton :class="!props.movie.isWatched ? 'gilded' : 'active'" :text="!props.movie.isWatched ? 'Mark as watched' : 'Watched'"
         @click="movieStore.toggleWatch(props.movie.id)" />
-      <AppButton :text="'Delete'" @click="movieStore.deleteMovie(props.movie.id)" />
+      <AppButton class="danger" :text="'Delete'" @click="movieStore.deleteMovie(props.movie.id)" />
     </div>
 
     <div class="movie__buttons" v-if="props.storeName === 'searchStore'">
-      <AppButton :text="isMovieFavorite(props.movie.id) ? 'In Favorites' : 'Add to Favorites'"
+      <AppButton :class="isMovieFavorite(props.movie.id) ? 'active' : 'gilded'" :text="isMovieFavorite(props.movie.id) ? 'In Favorites' : 'Add to Favorites'"
         @click="searchStore.addToFavorites(props.movie)" />
     </div>
   </div>

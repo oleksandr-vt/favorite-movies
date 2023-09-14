@@ -24,7 +24,7 @@ const inputValue = ref('')
       </div>
 
       <template v-if="!searchStore.loader && searchStore.movies.length > 0">
-        <h2 class="block__title title">Search results for "{{ inputValue }}"</h2>
+        <h2 class="block__title title">Search results for "{{ searchStore.searchStr }}"</h2>
 
         <div class="block__list">
           <Movie v-for="(movie, index) in searchStore.movies" :key="movie.id" :movie="movie"
@@ -33,7 +33,7 @@ const inputValue = ref('')
       </template>
 
       <p class="block__text" v-if="searchStore.fallback === true">
-        No results found for "{{ inputValue }}"
+        No results found for "{{ searchStore.searchStr }}"
       </p>
     </div>
   </div>

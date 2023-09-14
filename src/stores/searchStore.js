@@ -7,12 +7,15 @@ export const useSearchStore = defineStore("searchStore", () => {
   const movies = ref([])
   const loader = ref(false)
   const fallback = ref(false)
+  const searchStr = ref('')
 
-  const getMovies = async (searchStr) => {
+  const getMovies = async (str) => {
     fallback.value = false
     loader.value = true
+    searchStr.value = str
+    localStorage.setItem('searchStr', str)
 
-    const res = await fetch(`${url}${searchStr}`)
+    const res = await fetch(`${url}${str}`)
     const data = await res.json()
     movies.value = data.results
 
@@ -26,5 +29,5 @@ export const useSearchStore = defineStore("searchStore", () => {
     movieStore.movies.push({ ...movie, isWatched: false })
   }
 
-  return { movies, loader, fallback, getMovies, addToFavorites }
+  return { movies, loader, fallback, searchStr, getMovies, addToFavorites }
 })
