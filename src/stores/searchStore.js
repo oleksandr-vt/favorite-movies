@@ -13,7 +13,6 @@ export const useSearchStore = defineStore("searchStore", () => {
     fallback.value = false
     loader.value = true
     searchStr.value = str
-    localStorage.setItem('searchStr', str)
 
     const res = await fetch(`${url}${str}`)
     const data = await res.json()

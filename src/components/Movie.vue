@@ -82,12 +82,20 @@ const isMovieFavorite = (id) => {
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
+
+      @media (max-width: $breakpoint576) {
+        font-size: 18px;
+      }
     }
 
     span {
       color: $colorLightGray;
       font-size: 15px;
       font-weight: 700;
+
+      @media (max-width: $breakpoint576) {
+        font-size: 14px;
+      }
     }
   }
 

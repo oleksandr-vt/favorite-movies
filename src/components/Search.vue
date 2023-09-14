@@ -12,8 +12,8 @@ const inputValue = ref('')
   <div class="container">
     <form class="search" @submit.prevent="searchStore.getMovies(inputValue)">
       <label for="search">
-        <h6>Enter the name of the movie:</h6>
-        <input v-model="inputValue" @input="searchStore.fallback = false" class="search__input" id="search" type="text"
+        <h6>Enter the name of the movie (in any language):</h6>
+        <input v-model="inputValue" @input="searchStore.fallback = false" class="search__input" id="search" type="search"
           placeholder="Search..." minlength="3" maxlength="50">
       </label>
     </form>
@@ -46,7 +46,11 @@ const inputValue = ref('')
   width: 100%;
   max-width: 560px;
   margin: 0 auto;
-  padding-bottom: 60px;
+  padding-bottom: 50px;
+
+  @media (max-width: $breakpoint768) {
+    padding-bottom: 40px;
+  }
 
   label {
     display: block;
@@ -56,6 +60,10 @@ const inputValue = ref('')
     margin-bottom: 12px;
     font-size: 18px;
     font-weight: 600;
+
+    @media (max-width: $breakpoint576) {
+      font-size: 15px;
+    }
   }
 
   &__input {
@@ -67,36 +75,6 @@ const inputValue = ref('')
     font-size: 16px;
     font-weight: 500;
     padding: 10px 16px;
-  }
-}
-
-.block {
-  padding-bottom: 50px;
-
-  &__loader {
-    display: flex;
-    justify-content: center;
-  }
-
-  &__title {
-    margin-bottom: 25px;
-  }
-
-  &__list {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-  }
-
-  &__text {
-    font-size: 22px;
-    text-align: center;
-
-    a {
-      display: inline;
-      color: $colorGold;
-      text-decoration: underline;
-    }
   }
 }
 </style>

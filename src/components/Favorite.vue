@@ -38,32 +38,3 @@ const movieStore = useMovieStore()
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-@import "@/assets/css/variables.scss";
-
-.block {
-  padding-bottom: 50px;
-
-  &__title {
-    margin-bottom: 25px;
-  }
-
-  &__list {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-  }
-
-  &__text {
-    font-size: 22px;
-    text-align: center;
-
-    a {
-      display: inline;
-      color: $colorGold;
-      text-decoration: underline;
-    }
-  }
-}
-</style>

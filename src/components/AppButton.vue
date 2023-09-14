@@ -32,6 +32,11 @@ const props = defineProps({
   padding: 8px 10px;
   transition: 0.15s all ease;
 
+  @media (max-width: $breakpoint576) {
+    font-size: 16px;
+    max-width: 125px;
+  }
+
   &:hover {
     background-color: $colorWhite;
     color: $colorBlack;
