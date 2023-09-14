@@ -20,8 +20,8 @@ const movieStore = useMovieStore()
 
   <div class="block" v-else>
     <div class="container">
-      <p class="block__empty">
-        No favorite movies yet. Find them <RouterLink to="/search">here</RouterLink>:
+      <p class="block__text">
+        No favorite movies yet. Find and add them <RouterLink to="/search">here</RouterLink>
       </p>
     </div>
   </div>
@@ -55,7 +55,7 @@ const movieStore = useMovieStore()
     gap: 20px;
   }
 
-  &__empty {
+  &__text {
     font-size: 22px;
     text-align: center;
 

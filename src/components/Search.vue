@@ -5,15 +5,16 @@ import LoadingSpinner from './LoadingSpinner.vue'
 import Movie from './Movie.vue'
 
 const searchStore = useSearchStore()
-const searchMovie = ref('')
+const inputValue = ref('')
 </script>
 
 <template>
   <div class="container">
-    <form class="search" @submit.prevent="searchStore.getMovies(searchMovie)">
+    <form class="search" @submit.prevent="searchStore.getMovies(inputValue)">
       <label for="search">
         <h6>Enter the name of the movie:</h6>
-        <input v-model="searchMovie" class="search__input" id="search" type="text" placeholder="Search...">
+        <input v-model="inputValue" @input="searchStore.fallback = false" class="search__input" id="search" type="text"
+          placeholder="Search..." minlength="3" maxlength="50">
       </label>
     </form>
 
@@ -23,13 +24,17 @@ const searchMovie = ref('')
       </div>
 
       <template v-if="!searchStore.loader && searchStore.movies.length > 0">
-        <h2 class="block__title title">Search results for "{{ searchMovie }}"</h2>
+        <h2 class="block__title title">Search results for "{{ inputValue }}"</h2>
 
         <div class="block__list">
           <Movie v-for="(movie, index) in searchStore.movies" :key="movie.id" :movie="movie"
             :storeName="searchStore.$id" />
         </div>
       </template>
+
+      <p class="block__text" v-if="searchStore.fallback === true">
+        No results found for "{{ inputValue }}"
+      </p>
     </div>
   </div>
 </template>
@@ -81,6 +86,17 @@ const searchMovie = ref('')
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
+  }
+
+  &__text {
+    font-size: 22px;
+    text-align: center;
+
+    a {
+      display: inline;
+      color: $colorGold;
+      text-decoration: underline;
+    }
   }
 }
 </style>

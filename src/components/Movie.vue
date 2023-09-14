@@ -21,6 +21,13 @@ const searchStore = useSearchStore()
 const formattedDate = (date) => {
   return date.split("-")[0]
 }
+
+const isMovieFavorite = (id) => {
+  if (movieStore.movies.find(el => el.id === id)) {
+    return true
+  }
+  return false
+}
 </script>
 
 <template>
@@ -34,12 +41,14 @@ const formattedDate = (date) => {
     </div>
 
     <div class="movie__buttons" v-if="props.storeName === 'movieStore'">
-      <AppButton :text="!props.movie.isWatched ? 'Watched' : 'Unwatch'" @click="movieStore.toggleWatch(props.movie.id)" />
+      <AppButton :text="!props.movie.isWatched ? 'Watched' : 'Unwatched'"
+        @click="movieStore.toggleWatch(props.movie.id)" />
       <AppButton :text="'Delete'" @click="movieStore.deleteMovie(props.movie.id)" />
     </div>
 
     <div class="movie__buttons" v-if="props.storeName === 'searchStore'">
-      <AppButton :text="'Add to Favorites'" @click="searchStore.addToFavorites(props.movie)" />
+      <AppButton :text="isMovieFavorite(props.movie.id) ? 'In Favorites' : 'Add to Favorites'"
+        @click="searchStore.addToFavorites(props.movie)" />
     </div>
   </div>
 </template>
