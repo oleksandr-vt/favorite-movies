@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { useMovieStore } from './movieStore'
-const url = "https://api.themoviedb.org/3/search/movie?api_key=dfdcb281c851cc35c30f83224b622a8f&query="
+import { useFavoriteStore } from './favoriteStore'
+const url = `${import.meta.env.VITE_API_SEARCH_URL}?api_key=${import.meta.env.VITE_API_KEY}`
 
 export const useSearchStore = defineStore("searchStore", () => {
   const movies = ref([])
@@ -14,7 +14,7 @@ export const useSearchStore = defineStore("searchStore", () => {
     loader.value = true
     searchStr.value = str
 
-    const res = await fetch(`${url}${str}`)
+    const res = await fetch(`${url}&query=${str}`)
     const data = await res.json()
     movies.value = data.results
 
@@ -23,9 +23,9 @@ export const useSearchStore = defineStore("searchStore", () => {
   }
 
   const addToFavorites = (movie) => {
-    const movieStore = useMovieStore()
-    if (movieStore.movies.find(el => el.id === movie.id)) return
-    movieStore.movies.push({ ...movie, isWatched: false })
+    const favoriteStore = useFavoriteStore()
+    if (favoriteStore.movies.find(el => el.id === movie.id)) return
+    favoriteStore.movies.push({ ...movie, isWatched: false })
   }
 
   return { movies, loader, fallback, searchStr, getMovies, addToFavorites }

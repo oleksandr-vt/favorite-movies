@@ -1,7 +1,7 @@
 import { ref, computed, watch } from 'vue'
 import { defineStore } from 'pinia'
 
-export const useMovieStore = defineStore("movieStore", () => {
+export const useFavoriteStore = defineStore("favoriteStore", () => {
   const movies = ref([])
 
   const moviesInLocalStorage = localStorage.getItem('movies')

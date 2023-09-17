@@ -1,18 +1,26 @@
 <script setup>
-const props = defineProps({
+defineProps({
   text: {
     type: String,
     required: true
   },
-  active: {
+  isActive: {
     type: Boolean,
     required: false
-  }
+  },
+  isGilded: {
+    type: Boolean,
+    required: false
+  },
+  isDanger: {
+    type: Boolean,
+    required: false
+  },
 })
 </script>
 
 <template>
-  <button class="button" :class="props.active ? 'active' : ''">{{ props.text }}</button>
+  <button class="button" :class="{ 'active': isActive, 'danger': isDanger, 'gilded': isGilded }">{{ text }}</button>
 </template>
 
 <style lang="scss" scoped>

@@ -1,9 +1,9 @@
 <script setup>
-import { useMovieStore } from '@/stores/movieStore'
+import { useFavoriteStore } from '@/stores/favoriteStore'
 import { useSearchStore } from '@/stores/searchStore'
-import AppButton from './AppButton.vue'
+import Button from './Button.vue'
 
-const props = defineProps({
+defineProps({
   movie: {
     type: Object,
     required: true,
@@ -15,40 +15,38 @@ const props = defineProps({
   }
 })
 
-const movieStore = useMovieStore()
+const favoriteStore = useFavoriteStore()
 const searchStore = useSearchStore()
+
+const posterURL = import.meta.env.VITE_API_POSTER_URL
 
 const formattedDate = (date) => {
   return date.split("-")[0]
 }
 
 const isMovieFavorite = (id) => {
-  if (movieStore.movies.find(el => el.id === id)) {
-    return true
-  }
-  return false
+  return !!favoriteStore.movies.find(el => el.id === id)
 }
 </script>
 
 <template>
   <div class="movie">
-    <img class="movie__img" :src="`https://image.tmdb.org/t/p/w300_and_h450_bestv2${props.movie.poster_path}`"
-      :alt="props.movie.original_title" loading="lazy">
+    <img class="movie__img" :src="`${posterURL}${movie.poster_path}`"
+      :alt="movie.original_title" loading="lazy">
 
     <div class="movie__info">
-      <h4 :title="props.movie.original_title">{{ props.movie.original_title }}</h4>
-      <span>{{ formattedDate(props.movie.release_date) }}</span>
+      <h4 :title="movie.original_title">{{ movie.original_title }}</h4>
+      <span>{{ formattedDate(movie.release_date) }}</span>
     </div>
 
-    <div class="movie__buttons" v-if="props.storeName === 'movieStore'">
-      <AppButton :class="!props.movie.isWatched ? 'gilded' : 'active'" :text="!props.movie.isWatched ? 'Mark as watched' : 'Watched'"
-        @click="movieStore.toggleWatch(props.movie.id)" />
-      <AppButton class="danger" :text="'Delete'" @click="movieStore.deleteMovie(props.movie.id)" />
+    <div class="movie__buttons" v-if="storeName === 'favoriteStore'">
+      <Button :isGilded="!movie.isWatched" :isActive="movie.isWatched" :text="!movie.isWatched ? 'Mark as watched' : 'Watched'"
+        @click="favoriteStore.toggleWatch(movie.id)" />
+      <Button :text="'Delete'" :isDanger="true" @click="favoriteStore.deleteMovie(movie.id)" />
     </div>
 
-    <div class="movie__buttons" v-if="props.storeName === 'searchStore'">
-      <AppButton :class="isMovieFavorite(props.movie.id) ? 'active' : 'gilded'" :text="isMovieFavorite(props.movie.id) ? 'In Favorites' : 'Add to Favorites'"
-        @click="searchStore.addToFavorites(props.movie)" />
+    <div class="movie__buttons" v-if="storeName === 'searchStore'">
+      <Button :isActive="isMovieFavorite(movie.id)" :isGilded="true" :text="isMovieFavorite(movie.id) ? 'In Favorites' : 'Add to Favorites'" @click="searchStore.addToFavorites(movie)" />
     </div>
   </div>
 </template>

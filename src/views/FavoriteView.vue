@@ -1,9 +1,14 @@
 <script setup>
-import Favorite from '../components/Favorite.vue'
+import { useFavoriteStore } from '@/stores/favoriteStore'
+import Block from '@/components/Block.vue'
+
+const favoriteStore = useFavoriteStore()
 </script>
 
 <template>
   <main>
-    <Favorite />
+    <div class="container">
+      <Block :movies="favoriteStore.movies" :watchedMovies="favoriteStore.watchedMovies" :storeName="favoriteStore.$id" />
+    </div>
   </main>
 </template>

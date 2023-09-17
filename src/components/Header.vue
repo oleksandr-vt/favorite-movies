@@ -1,6 +1,6 @@
 <script setup>
 import { useRoute } from 'vue-router'
-import AppButton from './AppButton.vue'
+import Button from './Button.vue'
 
 const route = useRoute()
 </script>
@@ -14,8 +14,8 @@ const route = useRoute()
       </div>
 
       <div class="header__buttons">
-        <AppButton @click="$router.push('/')" :text="'Favorite'" :active="route.path === '/'" />
-        <AppButton @click="$router.push('/search')" :text="'Search'" :active="route.path === '/search'" />
+        <Button @click="$router.push('/')" :text="'Favorite'" :isActive="route.path === '/'" />
+        <Button @click="$router.push('/search')" :text="'Search'" :isActive="route.path === '/search'" />
       </div>
     </div>
   </div>
@@ -73,12 +73,11 @@ const route = useRoute()
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 26px;
+    gap: 20px;
     margin-top: 50px;
 
     @media (max-width: $breakpoint768) {
       margin-top: 30px;
-      gap: 20px;
     }
   }
 }
