@@ -8,8 +8,8 @@ const inputValue = ref('')
   <form class="search" @submit.prevent="$emit('get-movies', inputValue)">
     <label for="search">
       <h6>Enter the name of the movie (in any language):</h6>
-      <input v-model="inputValue" @input="$emit('hide-fallback')" id="search" type="search"
-        placeholder="Search..." minlength="3" maxlength="80">
+      <input v-model="inputValue" @input="$emit('hide-fallback')" id="search" type="search" placeholder="Search..."
+        minlength="2" maxlength="80">
     </label>
   </form>
 </template>

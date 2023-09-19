@@ -3,8 +3,9 @@ import { RouterLink } from 'vue-router'
 import LoadingSpinner from './LoadingSpinner.vue'
 import Movie from './Movie.vue'
 import Title from './Title.vue'
+import Pagination from './Pagination.vue'
 
-defineProps({
+const props = defineProps({
   movies: {
     type: Array,
     required: true,
@@ -21,7 +22,7 @@ defineProps({
   },
   storeName: {
     type: String,
-    required: false,
+    required: false
   },
   isLoader: {
     type: Boolean,
@@ -31,7 +32,23 @@ defineProps({
     type: Boolean,
     required: false
   },
+  totalResults: {
+    type: Number,
+    required: false
+  },
+  totalPages: {
+    type: Number,
+    required: false
+  },
+  isNewStr: {
+    type: Boolean,
+    required: false,
+  }
 })
+
+const formattedResults = (res) => {
+  return res > 1 ? `(${res} results)` : `(${res} result)`
+}
 </script>
 
 <template>
@@ -65,13 +82,14 @@ defineProps({
         <LoadingSpinner />
       </div>
 
-      <template v-if="!isLoader && movies.length > 0">
-        <Title :title='`Search results for "${searchStr}"`' :hasSpacing="true" />
+      <Title v-if="!isLoader && movies.length > 0" :title='`Search results for "${searchStr}"`' :hasSpacing="true"
+        :totalResults="formattedResults(totalResults)" />
 
-        <div class="block__list">
-          <Movie v-for="(movie, index) in movies" :key="movie.id" :movie="movie" :storeName="storeName" />
-        </div>
-      </template>
+      <div class="block__list" v-if="!isLoader && movies.length > 0">
+        <Movie v-for="(movie, index) in movies" :key="movie.id" :movie="movie" :storeName="storeName" />
+      </div>
+
+      <Pagination v-if="totalPages > 1 && !isNewStr" :totalPages="totalPages" />
 
       <p class="block__text" v-if="isFallback">
         No results found for "{{ searchStr }}"
@@ -87,6 +105,7 @@ defineProps({
   &__loader {
     display: flex;
     justify-content: center;
+    margin-bottom: 50px;
   }
 
   &__list {

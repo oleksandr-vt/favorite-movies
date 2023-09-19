@@ -8,17 +8,28 @@ export const useSearchStore = defineStore("searchStore", () => {
   const loader = ref(false)
   const fallback = ref(false)
   const searchStr = ref('')
+  const isNewSearchStr = ref(false)
+  const totalPages = ref(0)
+  const totalResults = ref(0)
 
-  const getMovies = async (str) => {
+  const getMovies = async ({ str, page = 1, isNewStr = false }) => {
+    if (str.length < 2) return
+
+    if (isNewStr) isNewSearchStr.value = true
+
     fallback.value = false
     loader.value = true
     searchStr.value = str
 
-    const res = await fetch(`${url}&query=${str}`)
+    const res = await fetch(`${url}&query=${str}&page=${page}`)
+
     const data = await res.json()
     movies.value = data.results
+    totalPages.value = data.total_pages
+    totalResults.value = data.total_results
 
     loader.value = false
+    isNewSearchStr.value = false
     if (movies.value.length < 1) fallback.value = true
   }
 
@@ -28,5 +39,5 @@ export const useSearchStore = defineStore("searchStore", () => {
     favoriteStore.movies.push({ ...movie, isWatched: false })
   }
 
-  return { movies, loader, fallback, searchStr, getMovies, addToFavorites }
+  return { movies, loader, fallback, searchStr, isNewSearchStr, totalPages, totalResults, getMovies, addToFavorites }
 })

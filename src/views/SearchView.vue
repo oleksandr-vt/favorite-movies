@@ -9,8 +9,11 @@ const searchStore = useSearchStore()
 <template>
   <main>
     <div class="container">
-      <SearchForm @hide-fallback="searchStore.fallback = false" @get-movies="(str) => searchStore.getMovies(str)" />
-      <Block :isLoader="searchStore.loader" :isFallback="searchStore.fallback" :movies="searchStore.movies" :searchStr="searchStore.searchStr" :storeName="searchStore.$id" />
+      <SearchForm @hide-fallback="searchStore.fallback = false"
+        @get-movies="(str) => searchStore.getMovies({ str, isNewStr: true })" />
+      <Block :isLoader="searchStore.loader" :isFallback="searchStore.fallback" :movies="searchStore.movies"
+        :searchStr="searchStore.searchStr" :totalResults="searchStore.totalResults" :totalPages="searchStore.totalPages"
+        :storeName="searchStore.$id" :isNewStr="searchStore.isNewSearchStr" />
     </div>
   </main>
 </template>
