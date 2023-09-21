@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import FavoriteView from '../views/FavoriteView.vue'
 import SearchView from '../views/SearchView.vue'
+import MovieView from '../views/MovieView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,10 +16,11 @@ const router = createRouter({
       name: 'search',
       component: SearchView
     },
-    // {
-    //   path: '/:id',
-    //   redirect: '/',
-    // }
+    {
+      path: '/movie/:id',
+      name: 'movie',
+      component: MovieView
+    }
   ]
 })
 

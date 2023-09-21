@@ -1,7 +1,8 @@
 <script setup>
-import { RouterLink } from 'vue-router'
+import { useRouter, useRoute, RouterLink } from 'vue-router'
+import { useMovieStore } from '@/stores/movieStore'
 import LoadingSpinner from './LoadingSpinner.vue'
-import Movie from './Movie.vue'
+import MovieCard from './MovieCard.vue'
 import Title from './Title.vue'
 import Pagination from './Pagination.vue'
 
@@ -46,8 +47,18 @@ const props = defineProps({
   }
 })
 
+const movieStore = useMovieStore()
+
+const router = useRouter()
+const route = useRoute()
+
 const formattedResults = (res) => {
   return res > 1 ? `(${res} results)` : `(${res} result)`
+}
+
+const openMovie = (mov) => {
+  movieStore.addMovie(mov)
+  router.push({ name: 'movie', params: { id: mov.id } })
 }
 </script>
 
@@ -58,7 +69,8 @@ const formattedResults = (res) => {
         <Title :title="'Favorite Movies'" :hasSpacing="true" />
 
         <div class="block__list">
-          <Movie v-for="(movie, index) in movies" :key="movie.id" :movie="movie" :storeName="storeName" />
+          <MovieCard v-for="(movie, index) in movies" :key="movie.id" :movie="movie" :storeName="storeName"
+            @click="openMovie(movie)" />
         </div>
       </template>
 
@@ -72,7 +84,8 @@ const formattedResults = (res) => {
         <Title :title="'Watched Movies'" :hasSpacing="true" />
 
         <div class="block__list">
-          <Movie v-for="(movie, index) in watchedMovies" :key="movie.id" :movie="movie" :storeName="storeName" />
+          <MovieCard v-for="(movie, index) in watchedMovies" :key="movie.id" :movie="movie" :storeName="storeName"
+            @click="openMovie(movie)" />
         </div>
       </template>
     </template>
@@ -86,7 +99,8 @@ const formattedResults = (res) => {
         :totalResults="formattedResults(totalResults)" />
 
       <div class="block__list" v-if="!isLoader && movies.length > 0">
-        <Movie v-for="(movie, index) in movies" :key="movie.id" :movie="movie" :storeName="storeName" />
+        <MovieCard v-for="(movie, index) in movies" :key="movie.id" :movie="movie" :storeName="storeName"
+          @click="openMovie(movie)" />
       </div>
 
       <Pagination v-if="totalPages > 1 && !isNewStr" :totalPages="totalPages" />

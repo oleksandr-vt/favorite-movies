@@ -1,13 +1,8 @@
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useFavoriteStore = defineStore("favoriteStore", () => {
   const movies = ref([])
-
-  const moviesInLocalStorage = localStorage.getItem('movies')
-  if (moviesInLocalStorage) {
-    movies.value = JSON.parse(moviesInLocalStorage)._value
-  }
 
   const watchedMovies = computed(() => {
     return movies.value.filter(el => el.isWatched)
@@ -22,9 +17,5 @@ export const useFavoriteStore = defineStore("favoriteStore", () => {
     movies.value = movies.value.filter(el => el.id !== id)
   }
 
-  watch(() => movies, (state) => {
-    localStorage.setItem('movies', JSON.stringify(state))
-  }, { deep: true })
-
   return { movies, watchedMovies, toggleWatch, deleteMovie }
-})
+}, { persist: true })

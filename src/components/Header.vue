@@ -1,21 +1,22 @@
 <script setup>
-import { useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import Button from './Button.vue'
 
+const router = useRouter()
 const route = useRoute()
 </script>
 
 <template>
   <div class="header">
     <div class="container">
-      <div class="header__title" @click="$router.push('/')">
+      <div class="header__title" @click="router.push({ name: 'favorite' })">
         <img :src="'/popcorn.svg'" alt="img">
         <h1>My favorite movies</h1>
       </div>
 
       <div class="header__buttons">
-        <Button @click="$router.push('/')" :text="'Favorite'" :isActive="route.path === '/'" />
-        <Button @click="$router.push('/search')" :text="'Search'" :isActive="route.path === '/search'" />
+        <Button @click="router.push({ name: 'favorite' })" :text="'Favorite'" :isActive="route.path === '/'" />
+        <Button @click="router.push({ name: 'search' })" :text="'Search'" :isActive="route.path === '/search'" />
       </div>
     </div>
   </div>
