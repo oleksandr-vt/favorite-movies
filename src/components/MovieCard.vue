@@ -1,6 +1,7 @@
 <script setup>
 import { useFavoriteStore } from '@/stores/favoriteStore'
 import { useSearchStore } from '@/stores/searchStore'
+import { formatDate, formatRating } from '@/assets/js/helpers.js'
 import Button from './Button.vue'
 import Star from './icons/Star.vue'
 
@@ -21,14 +22,6 @@ const searchStore = useSearchStore()
 
 const posterURL = import.meta.env.VITE_API_POSTER_URL
 
-const formatDate = (date) => {
-  return date.split("-")[0]
-}
-
-const formatRating = (vote) => {
-  return (Math.round(vote * 10) / 10).toFixed(1)
-}
-
 const isMovieFavorite = (id) => {
   return !!favoriteStore.movies.find(el => el.id === id)
 }
@@ -36,7 +29,12 @@ const isMovieFavorite = (id) => {
 
 <template>
   <div class="movie">
-    <img class="movie__img" :src="`${posterURL}${movie.poster_path}`" :alt="movie.original_title" loading="lazy">
+    <div class="movie__img">
+      <img :src="movie.poster_path ? `${posterURL}${movie.poster_path}` : '/not-found.jpg'" :alt="movie.original_title"
+        loading="lazy">
+      <div class="movie__img-overlay"></div>
+    </div>
+
     <h4 class="movie__title" :title="movie.original_title">{{ movie.original_title }}</h4>
 
     <div class="movie__info">
@@ -74,10 +72,36 @@ const isMovieFavorite = (id) => {
   border-radius: 4px;
   cursor: pointer;
 
+  &:hover {
+    .movie__img-overlay {
+      opacity: 0.15;
+    }
+
+    .movie__title {
+      text-decoration-color: $colorWhite;
+    }
+  }
+
   &__img {
+    position: relative;
+    overflow: hidden;
     width: 100%;
-    aspect-ratio: 2/3;
-    object-fit: cover;
+
+    img {
+      width: 100%;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+    }
+
+    &-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: $colorBlack;
+      transition: 0.3s all ease;
+      opacity: 0;
+    }
   }
 
   &__title {
@@ -89,6 +113,9 @@ const isMovieFavorite = (id) => {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: 0.15s all ease;
 
     @media (max-width: $breakpoint576) {
       font-size: 18px;
