@@ -1,114 +1,54 @@
 <script setup>
-import { useRouter, useRoute, RouterLink } from 'vue-router'
-import { useMovieStore } from '@/stores/movieStore'
+import { formatResults } from '@/assets/js/helpers.js'
 import LoadingSpinner from './LoadingSpinner.vue'
-import MovieCard from './MovieCard.vue'
 import Title from './Title.vue'
-import Pagination from './Pagination.vue'
 
-const props = defineProps({
-  movies: {
-    type: Array,
-    required: true,
-    default: () => []
-  },
-  watchedMovies: {
-    type: Array,
-    required: false,
-    default: () => []
-  },
-  searchStr: {
+defineProps({
+  title: {
     type: String,
-    required: false
-  },
-  storeName: {
-    type: String,
-    required: false
-  },
-  isLoader: {
-    type: Boolean,
-    required: false
-  },
-  isFallback: {
-    type: Boolean,
     required: false
   },
   totalResults: {
     type: Number,
     required: false
   },
-  totalPages: {
-    type: Number,
+  isLoading: {
+    type: Boolean,
     required: false
   },
-  isNewStr: {
+  isError: {
     type: Boolean,
-    required: false,
+    required: false
+  },
+  errorMessage: {
+    type: String,
+    required: false
+  },
+  moviesLength: {
+    type: Number,
+    required: false
   }
 })
-
-const movieStore = useMovieStore()
-
-const router = useRouter()
-const route = useRoute()
-
-const formattedResults = (res) => {
-  return res > 1 ? `(${res} results)` : `(${res} result)`
-}
-
-const openMovie = (mov) => {
-  movieStore.addMovie(mov)
-  router.push({ name: 'movie', params: { id: mov.id } })
-}
 </script>
 
 <template>
   <div class="block">
-    <template v-if="storeName === 'favoriteStore'">
-      <template v-if="movies.length > 0">
-        <Title :title="'Favorite Movies'" :hasSpacing="true" />
+    <div class="block__loader" v-if="isLoading">
+      <LoadingSpinner />
+    </div>
 
-        <div class="block__list">
-          <MovieCard v-for="(movie, index) in movies" :key="movie.id" :movie="movie" :storeName="storeName"
-            @click="openMovie(movie)" />
-        </div>
-      </template>
+    <p class="block__text" v-if="isError && errorMessage">
+      {{ errorMessage }}
+    </p>
 
-      <template v-else>
-        <p class="block__text">
-          No favorite movies yet. Find and add them <RouterLink to="/search">here</RouterLink>
-        </p>
-      </template>
+    <Title v-if="!isLoading && moviesLength > 0" :title="title"
+      :totalResults="totalResults ? formatResults(totalResults) : null" />
 
-      <template v-if="watchedMovies.length > 0">
-        <Title :title="'Watched Movies'" :hasSpacing="true" />
+    <div class="block__list" v-if="!isLoading && moviesLength > 0">
+      <slot name="movies"></slot>
+    </div>
 
-        <div class="block__list">
-          <MovieCard v-for="(movie, index) in watchedMovies" :key="movie.id" :movie="movie" :storeName="storeName"
-            @click="openMovie(movie)" />
-        </div>
-      </template>
-    </template>
-
-    <template v-if="storeName === 'searchStore'">
-      <div class="block__loader" v-if="isLoader">
-        <LoadingSpinner />
-      </div>
-
-      <Title v-if="!isLoader && movies.length > 0" :title='`Search results for "${searchStr}"`' :hasSpacing="true"
-        :totalResults="formattedResults(totalResults)" />
-
-      <div class="block__list" v-if="!isLoader && movies.length > 0">
-        <MovieCard v-for="(movie, index) in movies" :key="movie.id" :movie="movie" :storeName="storeName"
-          @click="openMovie(movie)" />
-      </div>
-
-      <Pagination v-if="totalPages > 1 && !isNewStr" :totalPages="totalPages" />
-
-      <p class="block__text" v-if="isFallback">
-        No results found for "{{ searchStr }}"
-      </p>
-    </template>
+    <slot name="pagination"></slot>
   </div>
 </template>
 

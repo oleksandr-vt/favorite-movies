@@ -2,14 +2,25 @@
 import { ref } from 'vue'
 
 const inputValue = ref('')
+
+defineProps({
+  onGetMovies: {
+    type: Function,
+    required: false,
+  },
+  onHideError: {
+    type: Function,
+    required: false,
+  },
+})
 </script>
 
 <template>
-  <form class="search" @submit.prevent="$emit('get-movies', inputValue)">
+  <form class="search" @submit.prevent="onGetMovies(inputValue)">
     <label for="search">
       <h6>Enter the name of the movie (in any language):</h6>
-      <input v-model="inputValue" @input="$emit('hide-fallback')" id="search" type="search" placeholder="Search..."
-        minlength="2" maxlength="80">
+      <input v-model="inputValue" @input="onHideError()" id="search" type="search" placeholder="Search..." minlength="2"
+        maxlength="80">
     </label>
   </form>
 </template>

@@ -1,7 +1,6 @@
 <script setup>
-import { useFavoriteStore } from '@/stores/favoriteStore'
-import { useSearchStore } from '@/stores/searchStore'
-import { formatDate, formatRating } from '@/assets/js/helpers.js'
+import { formatDate, formatRating, makePosterUrl } from '@/assets/js/helpers.js'
+import { MOVIE_TYPE } from '@/const/index.js'
 import Button from './Button.vue'
 import Star from './icons/Star.vue'
 
@@ -11,27 +10,33 @@ defineProps({
     required: true,
     default: () => { }
   },
-  storeName: {
+  movieType: {
     type: String,
+    validator: x => ['FAVORITE', 'REGULAR'].includes(x),
+  },
+  onAddToFavorites: {
+    type: Function,
     required: false,
-  }
+  },
+  onToggleWatch: {
+    type: Function,
+    required: false,
+  },
+  onDeleteMovie: {
+    type: Function,
+    required: false,
+  },
+  isMovieFavorite: {
+    type: Function,
+    required: false,
+  },
 })
-
-const favoriteStore = useFavoriteStore()
-const searchStore = useSearchStore()
-
-const posterURL = import.meta.env.VITE_API_POSTER_URL
-
-const isMovieFavorite = (id) => {
-  return !!favoriteStore.movies.find(el => el.id === id)
-}
 </script>
 
 <template>
   <div class="movie">
     <div class="movie__img">
-      <img :src="movie.poster_path ? `${posterURL}${movie.poster_path}` : '/not-found.jpg'" :alt="movie.original_title"
-        loading="lazy">
+      <img :src="makePosterUrl(movie.poster_path)" :alt="movie.original_title" loading="lazy">
       <div class="movie__img-overlay"></div>
     </div>
 
@@ -46,16 +51,15 @@ const isMovieFavorite = (id) => {
       </span>
     </div>
 
-    <div class="movie__buttons" v-if="storeName === 'favoriteStore'">
+    <div class="movie__buttons" v-if="movieType === MOVIE_TYPE.FAVORITE">
       <Button :isGilded="!movie.isWatched" :isActive="movie.isWatched"
-        :text="!movie.isWatched ? 'Mark as watched' : 'Watched'" @click.stop="favoriteStore.toggleWatch(movie.id)" />
-      <Button :text="'Delete'" :isDanger="true" @click.stop="favoriteStore.deleteMovie(movie.id)" />
+        :text="!movie.isWatched ? 'Mark as watched' : 'Watched'" @click.stop="onToggleWatch(movie.id)" />
+      <Button :text="'Delete'" :isDanger="true" @click.stop="onDeleteMovie(movie.id)" />
     </div>
 
-    <div class="movie__buttons" v-if="storeName === 'searchStore'">
+    <div class="movie__buttons" v-if="movieType === MOVIE_TYPE.REGULAR">
       <Button :isActive="isMovieFavorite(movie.id)" :isGilded="true"
-        :text="isMovieFavorite(movie.id) ? 'In Favorites' : 'Add to Favorites'"
-        @click.stop="searchStore.addToFavorites(movie)" />
+        :text="isMovieFavorite(movie.id) ? 'In Favorites' : 'Add to Favorites'" @click.stop="onAddToFavorites(movie)" />
     </div>
   </div>
 </template>

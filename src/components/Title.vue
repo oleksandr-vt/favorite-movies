@@ -4,10 +4,6 @@ defineProps({
     type: String,
     required: true
   },
-  hasSpacing: {
-    type: Boolean,
-    required: false
-  },
   totalResults: {
     type: String,
     required: false
@@ -16,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-  <h2 class="title" :class="{ 'spacing-bottom': hasSpacing }">
+  <h2 class="title">
     {{ title }}
     <span class="title__results" v-if="totalResults">{{ totalResults }}</span>
   </h2>
@@ -32,17 +28,11 @@ defineProps({
   align-items: flex-end;
   flex-wrap: wrap;
   gap: 7px;
+  margin-bottom: 25px;
 
   @media (max-width: $breakpoint768) {
     font-size: 26px;
-  }
-
-  &.spacing-bottom {
-    margin-bottom: 25px;
-
-    @media (max-width: $breakpoint768) {
-      margin-bottom: 18px;
-    }
+    margin-bottom: 18px;
   }
 
   &__results {
