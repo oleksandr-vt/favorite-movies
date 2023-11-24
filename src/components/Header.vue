@@ -10,7 +10,7 @@ const route = useRoute()
   <div class="header">
     <div class="container">
       <div class="header__title" @click="router.push({ name: 'favorite' })">
-        <img :src="'/popcorn.svg'" alt="img">
+        <img :src="'popcorn.svg'" alt="img">
         <h1>My favorite movies</h1>
       </div>
 
