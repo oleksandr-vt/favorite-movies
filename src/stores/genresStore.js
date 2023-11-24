@@ -13,4 +13,4 @@ export const useGenresStore = defineStore("genresStore", () => {
   }
 
   return { genres, getGenres }
-}, { persist: true })
+})
