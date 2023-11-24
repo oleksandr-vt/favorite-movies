@@ -21,7 +21,10 @@ const router = createRouter({
       name: 'movie',
       component: MovieView
     }
-  ]
+  ],
+  scrollBehavior() {
+    return { top: 0, behavior: 'instant' }
+  },
 })
 
 export default router

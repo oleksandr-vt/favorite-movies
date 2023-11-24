@@ -4,13 +4,15 @@ import Button from './Button.vue'
 
 const router = useRouter()
 const route = useRoute()
+
+const baseUrl = import.meta.env.BASE_URL
 </script>
 
 <template>
   <div class="header">
     <div class="container">
       <div class="header__title" @click="router.push({ name: 'favorite' })">
-        <img :src="'popcorn.svg'" alt="img">
+        <img :src="`${baseUrl}popcorn.svg`" alt="img">
         <h1>My favorite movies</h1>
       </div>
 
