@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import { formatDate, formatRating, makePosterUrl } from '@/assets/js/helpers.js'
+import { formatYear, formatRating, makePosterUrl } from '@/assets/js/helpers.js'
 import { MOVIE_TYPE } from '@/const/index.js'
 import Button from './Button.vue'
 import Star from './icons/Star.vue'
@@ -46,7 +46,7 @@ const router = useRouter()
     <h4 class="movie__title" :title="movie.original_title">{{ movie.original_title }}</h4>
 
     <div class="movie__info">
-      <span>{{ formatDate(movie.release_date) }}</span>
+      <span>{{ formatYear(movie.release_date) }}</span>
 
       <span>
         <Star />

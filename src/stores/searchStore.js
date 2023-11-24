@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useFavoriteStore } from './favoriteStore'
+
 const url = `${import.meta.env.VITE_API_SEARCH_URL}?api_key=${import.meta.env.VITE_API_KEY}`
 
 export const useSearchStore = defineStore("searchStore", () => {

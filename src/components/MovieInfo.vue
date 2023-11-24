@@ -9,6 +9,10 @@ const props = defineProps({
     required: true,
     default: () => { }
   },
+  genres: {
+    type: Array,
+    required: false,
+  },
   isMovieFavorite: {
     type: Function,
     required: false,
@@ -20,6 +24,14 @@ const props = defineProps({
 })
 
 const router = useRouter()
+
+const getMovieGenres = (genreIds) => {
+  if (!genreIds.length) return 'Not found'
+
+  const matchedGenres = props.genres.filter(genre => genreIds.includes(genre.id))
+  const genreNames = matchedGenres.map((genre) => genre.name)
+  return genreNames.join(', ')
+}
 </script>
 
 <template>
@@ -40,7 +52,7 @@ const router = useRouter()
         </li>
 
         <li>
-          <p><b>Genre:</b></p>
+          <p><b>Genre:</b> {{ getMovieGenres(movie.genre_ids) }}</p>
         </li>
 
         <li>
@@ -70,7 +82,7 @@ const router = useRouter()
   &__title {
     font-size: 44px;
     font-weight: 700;
-    margin-bottom: 32px;
+    margin-bottom: 28px;
 
     @media (max-width: $breakpoint768) {
       font-size: 36px;
@@ -138,7 +150,7 @@ const router = useRouter()
     }
 
     li {
-      font-size: 24px;
+      font-size: 22px;
 
       @media (max-width: $breakpoint768) {
         font-size: 20px;

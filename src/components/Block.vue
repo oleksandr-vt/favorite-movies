@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink } from 'vue-router'
 import { formatResults } from '@/assets/js/helpers.js'
 import LoadingSpinner from './LoadingSpinner.vue'
 import Title from './Title.vue'
@@ -27,7 +28,11 @@ defineProps({
   moviesLength: {
     type: Number,
     required: false
-  }
+  },
+  hasLinkToSearch: {
+    type: Boolean,
+    required: false
+  },
 })
 </script>
 
@@ -39,6 +44,7 @@ defineProps({
 
     <p class="block__text" v-if="isError && errorMessage">
       {{ errorMessage }}
+      <RouterLink v-if="hasLinkToSearch" to="/search">here</RouterLink>
     </p>
 
     <Title v-if="!isLoading && moviesLength > 0" :title="title"

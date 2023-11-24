@@ -21,7 +21,8 @@ const openMovie = (mov) => {
   <main>
     <div class="container">
       <Block :title="'Favorite Movies'" :isError="!favoriteStore.movies.length"
-        :errorMessage="'No favorite movies yet. Search for them!'" :moviesLength="favoriteStore.movies.length">
+        :errorMessage="'No favorite movies yet. Find them '" :hasLinkToSearch="true"
+        :moviesLength="favoriteStore.movies.length">
         <template #movies>
           <MovieCard v-for="(movie) in favoriteStore.movies" :key="movie.id" :movie="movie"
             :movieType="MOVIE_TYPE.FAVORITE" @click="openMovie(movie)"
