@@ -1,9 +1,9 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 const inputValue = ref('')
 
-defineProps({
+const props = defineProps({
   onGetMovies: {
     type: Function,
     required: false,
@@ -12,6 +12,14 @@ defineProps({
     type: Function,
     required: false,
   },
+  searchStr: {
+    type: String,
+    required: false,
+  },
+})
+
+onMounted(() => {
+  if (props.searchStr) inputValue.value = props.searchStr
 })
 </script>
 

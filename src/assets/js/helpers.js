@@ -1,5 +1,9 @@
-export const formatDate = (date) => {
+export const formatYear = (date) => {
   return date.split("-")[0]
+}
+
+export const formatDate = (date) => {
+  return date.split('-').reverse().join('.')
 }
 
 export const formatRating = (vote) => {

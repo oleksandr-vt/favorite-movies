@@ -29,7 +29,8 @@ const openMovie = (mov) => {
   <main>
     <div class="container">
       <SearchForm :onHideError="() => searchStore.isError = false"
-        :onGetMovies="(str) => searchStore.getMovies({ str: str.trim(), isNewStr: true })" />
+        :onGetMovies="(str) => searchStore.getMovies({ str: str.trim(), isNewStr: true })"
+        :searchStr="searchStore.searchStr" />
 
       <Block :title='`Search results for "${searchStore.searchStr}"`' :totalResults="searchStore.totalResults"
         :isLoading="searchStore.isLoading" :isError="searchStore.isError"
