@@ -34,7 +34,7 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/css/variables.scss";
+@import "~/assets/css/variables.scss";
 
 .search {
   width: 100%;

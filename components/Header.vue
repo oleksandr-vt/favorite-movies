@@ -25,7 +25,7 @@ const baseUrl = import.meta.env.BASE_URL
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/css/variables.scss";
+@import "~/assets/css/variables.scss";
 
 .header {
   text-align: center;

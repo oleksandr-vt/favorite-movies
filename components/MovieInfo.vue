@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import { formatDate, formatRating, makePosterUrl } from '@/assets/js/helpers.js'
+import { formatDate, formatRating, makePosterUrl } from '~/assets/js/helpers.js'
 import Button from './Button.vue'
 
 const props = defineProps({
@@ -76,7 +76,7 @@ const getMovieGenres = (genreIds) => {
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/css/variables.scss";
+@import "~/assets/css/variables.scss";
 
 .movie {
   &__title {

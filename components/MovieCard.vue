@@ -1,7 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import { formatYear, formatRating, makePosterUrl } from '@/assets/js/helpers.js'
-import { MOVIE_TYPE } from '@/const/index.js'
+import { formatYear, formatRating, makePosterUrl } from '~/assets/js/helpers.js'
+import { MOVIE_TYPE } from '~/const/index.js'
 import Button from './Button.vue'
 import Star from './icons/Star.vue'
 
@@ -69,7 +69,7 @@ const router = useRouter()
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/css/variables.scss";
+@import "~/assets/css/variables.scss";
 
 .movie {
   overflow: hidden;

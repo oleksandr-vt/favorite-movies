@@ -19,7 +19,7 @@ defineProps({
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/css/variables.scss";
+@import "~/assets/css/variables.scss";
 
 .title {
   font-size: 30px;

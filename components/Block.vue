@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink } from 'vue-router'
-import { formatResults } from '@/assets/js/helpers.js'
+import { formatResults } from '~/assets/js/helpers.js'
 import LoadingSpinner from './LoadingSpinner.vue'
 import Title from './Title.vue'
 
@@ -59,7 +59,7 @@ defineProps({
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/css/variables.scss";
+@import "~/assets/css/variables.scss";
 
 .block {
   &__loader {
