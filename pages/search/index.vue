@@ -1,9 +1,8 @@
 <script setup>
-import { useRouter } from 'vue-router'
 import { useSearchStore } from '~/stores/searchStore'
 import { useFavoriteStore } from '~/stores/favoriteStore'
 import { useMovieStore } from '~/stores/movieStore'
-import { MOVIE_TYPE } from '~/const/index.js'
+import { MOVIE_TYPE } from '~/assets/js/const.js'
 import Block from '~/components/Block.vue'
 import SearchForm from '~/components/SearchForm.vue'
 import MovieCard from '~/components/MovieCard.vue'
@@ -21,7 +20,7 @@ const isMovieFavorite = (id) => {
 
 const openMovie = (mov) => {
   movieStore.addMovie(mov)
-  router.push({ name: 'movie', params: { id: mov.id } })
+  router.push({ path: `/movie/${mov.id}` })
 }
 </script>
 

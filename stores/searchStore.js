@@ -1,4 +1,3 @@
-import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useFavoriteStore } from './favoriteStore'
 

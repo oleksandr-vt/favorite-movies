@@ -1,7 +1,6 @@
 <script setup>
-import { useRouter } from 'vue-router'
 import { formatYear, formatRating, makePosterUrl } from '~/assets/js/helpers.js'
-import { MOVIE_TYPE } from '~/const/index.js'
+import { MOVIE_TYPE } from '~/assets/js/const.js'
 import Button from './Button.vue'
 import Star from './icons/Star.vue'
 
@@ -32,8 +31,6 @@ defineProps({
     required: false,
   },
 })
-
-const router = useRouter()
 </script>
 
 <template>
@@ -63,7 +60,7 @@ const router = useRouter()
     <div class="movie__buttons" v-if="movieType === MOVIE_TYPE.REGULAR">
       <Button :isActive="isMovieFavorite(movie.id)" :isGilded="true"
         :text="isMovieFavorite(movie.id) ? 'In Favorites' : 'Add to Favorites'"
-        @click.stop="isMovieFavorite(movie.id) ? router.push({ name: 'favorite' }) : onAddToFavorites(movie)" />
+        @click.stop="isMovieFavorite(movie.id) ? $router.push({ path: '/' }) : onAddToFavorites(movie)" />
     </div>
   </div>
 </template>

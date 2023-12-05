@@ -1,4 +1,5 @@
 <script setup>
+import Paginate from "vuejs-paginate-next"
 import { useSearchStore } from '~/stores/searchStore'
 
 defineProps({

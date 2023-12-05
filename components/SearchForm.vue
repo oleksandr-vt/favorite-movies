@@ -1,6 +1,4 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-
 const inputValue = ref('')
 
 const props = defineProps({
