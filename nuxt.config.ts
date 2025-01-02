@@ -11,7 +11,10 @@ export default defineNuxtConfig({
     head: {
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
-      title: 'Your Favorite Movies!'
+      title: 'Your Favorite Movies!',
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      ]
     }
   },
   modules: [

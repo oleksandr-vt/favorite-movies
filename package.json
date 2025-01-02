@@ -8,8 +8,7 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "start": "nuxt start",
-    "ci_build": "nuxt build --preset github_pages"
+    "start": "nuxt start"
   },
   "dependencies": {
     "@nuxt/devtools": "latest",
