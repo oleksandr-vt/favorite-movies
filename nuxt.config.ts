@@ -4,8 +4,9 @@ import { defineNuxtConfig } from 'nuxt/config'
 export default defineNuxtConfig({
   devtools: { enabled: false },
   css: ['~/assets/css/style.scss'],
+  // ssr: false,
   app: {
-    baseURL: '/favorite-movies/',
+    // baseURL: '/favorite-movies/',
     // buildAssetsDir: 'assets',
     head: {
       charset: 'utf-8',
