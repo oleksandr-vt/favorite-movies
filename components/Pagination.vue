@@ -1,5 +1,6 @@
 <script setup>
-import { useSearchStore } from '@/stores/searchStore'
+import Paginate from "vuejs-paginate-next"
+import { useSearchStore } from '~/stores/searchStore'
 
 defineProps({
   totalPages: {
@@ -22,7 +23,7 @@ const paginationClick = (page) => {
 </template>
 
 <style lang="scss">
-@import "@/assets/css/variables.scss";
+@import "~/assets/css/variables.scss";
 
 .pagination {
   display: flex;

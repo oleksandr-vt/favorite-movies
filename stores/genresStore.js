@@ -1,4 +1,3 @@
-import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 const url = `${import.meta.env.VITE_API_GENRE_URL}?api_key=${import.meta.env.VITE_API_KEY}`

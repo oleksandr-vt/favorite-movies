@@ -1,6 +1,5 @@
 <script setup>
-import { useRouter } from 'vue-router'
-import { formatDate, formatRating, makePosterUrl } from '@/assets/js/helpers.js'
+import { formatDate, formatRating, makePosterUrl } from '~/assets/js/helpers.js'
 import Button from './Button.vue'
 
 const props = defineProps({
@@ -23,10 +22,8 @@ const props = defineProps({
   },
 })
 
-const router = useRouter()
-
 const getMovieGenres = (genreIds) => {
-  if (!genreIds.length) return 'Not found'
+  if (!genreIds.length) return ''
 
   const matchedGenres = props.genres.filter(genre => genreIds.includes(genre.id))
   const genreNames = matchedGenres.map((genre) => genre.name)
@@ -43,7 +40,7 @@ const getMovieGenres = (genreIds) => {
         <img class="movie__img" :src="makePosterUrl(movie.poster_path)" :alt="movie.original_title" loading="lazy">
         <Button class="movie__button" :isActive="isMovieFavorite(movie.id)" :isGilded="true"
           :text="isMovieFavorite(movie.id) ? 'In Favorites' : 'Add to Favorites'"
-          @click.stop="isMovieFavorite(movie.id) ? router.push({ name: 'favorite' }) : onAddToFavorites(movie)" />
+          @click.stop="isMovieFavorite(movie.id) ? $router.push({ path: '/' }) : onAddToFavorites(movie)" />
       </div>
 
       <ul class="movie__list">
@@ -76,7 +73,7 @@ const getMovieGenres = (genreIds) => {
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/css/variables.scss";
+@import "~/assets/css/variables.scss";
 
 .movie {
   &__title {

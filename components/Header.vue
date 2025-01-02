@@ -1,31 +1,34 @@
 <script setup>
-import { useRouter, useRoute } from 'vue-router'
 import Button from './Button.vue'
 
-const router = useRouter()
-const route = useRoute()
-
-const baseUrl = import.meta.env.BASE_URL
+// const baseUrl = import.meta.env.BASE_URL
 </script>
 
 <template>
   <div class="header">
     <div class="container">
-      <div class="header__title" @click="router.push({ name: 'favorite' })">
-        <img :src="`${baseUrl}popcorn.svg`" alt="img">
-        <h1>My favorite movies</h1>
-      </div>
+      <NuxtLink to="/">
+        <div class="header__title">
+          <img src="/popcorn.svg" alt="img">
+          <h1>My favorite movies</h1>
+        </div>
+      </NuxtLink>
 
       <div class="header__buttons">
-        <Button @click="router.push({ name: 'favorite' })" :text="'Favorite'" :isActive="route.path === '/'" />
-        <Button @click="router.push({ name: 'search' })" :text="'Search'" :isActive="route.path === '/search'" />
+        <NuxtLink to="/">
+          <Button :text="'Favorite'" :isActive="$route.path === '/'" />
+        </NuxtLink>
+
+        <NuxtLink to="/search">
+          <Button :text="'Search'" :isActive="$route.path === '/search'" />
+        </NuxtLink>
       </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/css/variables.scss";
+@import "~/assets/css/variables.scss";
 
 .header {
   text-align: center;
@@ -81,6 +84,11 @@ const baseUrl = import.meta.env.BASE_URL
 
     @media (max-width: $breakpoint768) {
       margin-top: 30px;
+    }
+
+    a {
+      width: 100%;
+      max-width: 140px;
     }
   }
 }

@@ -1,9 +1,9 @@
 <script setup>
-import { useSearchStore } from '@/stores/searchStore'
-import { useFavoriteStore } from '@/stores/favoriteStore'
-import { useMovieStore } from '@/stores/movieStore'
-import { useGenresStore } from '@/stores/genresStore'
-import MovieInfo from '@/components/MovieInfo.vue'
+import { useSearchStore } from '~/stores/searchStore'
+import { useFavoriteStore } from '~/stores/favoriteStore'
+import { useMovieStore } from '~/stores/movieStore'
+import { useGenresStore } from '~/stores/genresStore'
+import MovieInfo from '~/components/MovieInfo.vue'
 
 const searchStore = useSearchStore()
 const favoriteStore = useFavoriteStore()
