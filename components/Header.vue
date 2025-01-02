@@ -1,7 +1,7 @@
 <script setup>
 import Button from './Button.vue'
 
-const baseUrl = import.meta.env.BASE_URL
+// const baseUrl = import.meta.env.BASE_URL
 </script>
 
 <template>
@@ -9,7 +9,7 @@ const baseUrl = import.meta.env.BASE_URL
     <div class="container">
       <NuxtLink to="/">
         <div class="header__title">
-          <img :src="`${baseUrl}popcorn.svg`" alt="img">
+          <img src="/popcorn.svg" alt="img">
           <h1>My favorite movies</h1>
         </div>
       </NuxtLink>

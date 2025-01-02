@@ -6,6 +6,7 @@ export default defineNuxtConfig({
   css: ['~/assets/css/style.scss'],
   app: {
     // baseURL: '/favorite-movies/',
+    // buildAssetsDir: 'assets',
     head: {
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
