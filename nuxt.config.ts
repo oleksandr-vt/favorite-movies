@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   css: ['~/assets/css/style.scss'],
   // ssr: false,
   app: {
-    // baseURL: '/favorite-movies/',
+    baseURL: '/favorite-movies/',
     // buildAssetsDir: 'assets',
     head: {
       charset: 'utf-8',
